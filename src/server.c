@@ -63,13 +63,13 @@ server_listen(int sfd)
 static void
 server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
 {
-    char rbuf[1024]; /*TODO: stack is probably a good place*/
+    char rbuf[KEYBUFSIZE + VALBFSIZE];
     ssize_t size;
     struct msg mbuf;
     struct node *np;
 
     if(EV_ERROR & revents) {
-        log_err("got invalid event");
+        log_err("Invalid event");
         return;
     }
 
@@ -80,22 +80,18 @@ server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
         msg_unpack(&mbuf, rbuf);
 
         switch (mbuf.opcode) {
-
         case OPADD:
             dict_insert(table, mbuf.key, mbuf.value);
             break;
-
         case OPDEL:
             dict_delete(table, mbuf.key);
             break;
-
         case OPFIND:
             if ((np = dict_find(table, mbuf.key)) != NULL)
                 fprintf(stderr, "Found: %s\t->\t%s\n", mbuf.key, mbuf.value);
             else
                 fprintf(stderr, "NOT Found: %s\n", mbuf.key);
             break;
-
         default:
             fprintf(stderr, "Invalid\n");
             break;

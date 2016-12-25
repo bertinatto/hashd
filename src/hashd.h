@@ -1,7 +1,7 @@
 #include <stdarg.h>
 
 #define KEYBUFSIZE  32
-#define VALBFSIZE   512
+#define VALBFSIZE   128
 
 struct msg {
     unsigned short opcode;
