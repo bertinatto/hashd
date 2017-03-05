@@ -1,6 +1,6 @@
 # hashd - a simple in-memory cache
 
-hashd is simple in-memory cache developed in C. It aims to be a testbed for my own learning.
+hashd is a modest in-memory cache developed in C. A toy project. 
 
 ## FAQ
 
@@ -15,10 +15,6 @@ It seemed like a perfect opportunity to implement several concepts that I had li
 * Protocol design and implementation
 * Socket programming
 
-### Any inspirations?
+### Is it ready?
 
-I find the source code of OpenBSD networking daemons pretty perfect. The code quality we find in OpenBSD is probably the highest than any other project. That being said, I like to strictly follow their practices, and *hashd* is playground to help me getting to that level.
-
-### Is it good to go?
-
-Not at all. For now it's basically a proof-of-concept. The fun starts now.
+Not at all! Given that it's a toy project, I might not ever finish it. Simple *sets* and *gets* are working, thought.
