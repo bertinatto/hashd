@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "hashd.h"
 
@@ -17,9 +18,11 @@ hash_func(const char *buf, int len)
 {
     unsigned int hash = 5381;
 
-    while (len--)
+    while (len--) {
         hash = ((hash << 5) + hash) + (tolower(*buf++)); /* hash * 33 + c */
-    return hash;
+    }
+
+    return (hash);
 }
 
 unsigned int
@@ -57,6 +60,10 @@ dict_insert(struct dict *table, const char *key, const char *value)
     struct node *head;
     unsigned int hash;
 
+    if (key == NULL || value == NULL) {
+       return (-1);
+    }
+
     hash = dict_get_index(table, key, strlen(key));
     head = table->nodes[hash];
 
@@ -65,8 +72,12 @@ dict_insert(struct dict *table, const char *key, const char *value)
         return (-1);
     }
     
-    if (head == NULL)
-        table->nodes[hash] = np;
+    /*Already exists*/
+    if (head != NULL) {
+        return (-1);
+    }
+
+    table->nodes[hash] = np;
     (table->used)++;
     return (1);
 }
@@ -81,8 +92,9 @@ dict_find(struct dict *table, const char *key)
     np = table->nodes[hash];
        
     while (np != NULL) {
-        if (strcasecmp(np->key, key) == 0)
+        if (strcasecmp(np->key, key) == 0) {
             return (np);
+        }
         np = np->next;                
     }
 
@@ -105,4 +117,3 @@ dict_delete(struct dict *table, const char *key)
     
     return (1);
 }
-

@@ -13,8 +13,10 @@ node_new(const char *key, const char *value)
 {
     struct node *np;
 
-    if (key == NULL)
+    if (key == NULL || value == NULL || strcmp(key, "") == 0) {
+        errx(1, "cannot create node with invalid data");
         return (NULL);
+    }
 
     if ((np = calloc(1, sizeof(*np))) == NULL) {
         err(1, NULL);
@@ -32,14 +34,17 @@ node_insert(struct node *head, const char *key, const char *value)
 {
     struct node *np;
 
-    if (head == NULL)
+    if (head == NULL) {
         return node_new(key, value);
+    }
 
-    while (head->next != NULL)
+    while (head->next != NULL) {
         head = head->next;
+    }
 
-    if ((np = node_new(key, value)) == NULL)
+    if ((np = node_new(key, value)) == NULL) {
         return (NULL);
+    }
 
     np->prev = head;
     head->next = np;
@@ -54,7 +59,7 @@ node_delete(struct node *e)
 
     if (e == NULL) {
         errx(1, "cannot delete invalid node");
-        return NULL;
+        return (NULL);
     }
     
     next = e->next;
@@ -67,9 +72,10 @@ node_delete(struct node *e)
         e->next->prev = e->prev;
     }
 
-    free(e->key); 
-    free(e->value); 
-    free(e); 
+    free(e->key);
+    free(e->value);
+    free(e);
+    e = NULL;
 
     return (next);
 }

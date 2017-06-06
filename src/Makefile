@@ -1,6 +1,4 @@
-# hashd - a simple in-memory cache
-
-VERSION = 0
+VERSION = 0.1
 
 # paths
 PREFIX = /usr/local
@@ -16,9 +14,9 @@ CFLAGS = -g -std=c99 -pedantic -Wall -O2 ${INCS} ${CPPFLAGS}
 LDFLAGS = ${LIBS}
 
 # compiler and linker
-CC = clang
+CC = gcc
 
-SRC = log.c node.c dict.c proto.c server.c hashd.c
+SRC=$(wildcard *.c)
 OBJ = ${SRC:.c=.o}
 
 all: options hashd

@@ -57,28 +57,16 @@ main(int argc, char *argv[])
 	signal(SIGINT, sighdr);
     table = dict_new(1000);
     log_init(verbosity);
+    sandbox_init();
     server_start(table, port, &quit);
     server_cleanup();
     return 0;
 }
 
 /*TODO:*/
-/*log.c similar to ntpd*/ //DONE
-/*prototypes*/
-/*check necesssary free() calls | valgrind*/
-
-/*length checking in proto*/
-/*input validation*/
-/*errno*/
-/*unit tests*/
 /*review log*/
-/*README*/
 /*struct hashd_conf*/
 /*sighup*/
-/*release!*/
-/*grow dict*/
+/*dict resizeble*/
 /*fuzz testing*/
-
-///////////////////
 /*save to file*/
-/*privilege separation*/

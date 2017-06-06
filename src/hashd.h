@@ -30,7 +30,7 @@ struct node {
     struct node *next;
 };
 
-//server.c
+/* server.c */
 void server_start(struct dict*, char*, volatile int*);
 void server_cleanup();
 
@@ -59,3 +59,5 @@ struct node* node_new(const char*, const char*);
 struct node* node_insert(struct node*, const char*, const char*);
 struct node* node_delete(struct node*);
 
+//sandbox.c
+void sandbox_init(void);

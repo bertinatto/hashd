@@ -38,14 +38,16 @@ server_init(char *port)
             continue;
         }
         if (setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == 0) {
-            if (bind(sfd, sp->ai_addr, sp->ai_addrlen) == 0)
+            if (bind(sfd, sp->ai_addr, sp->ai_addrlen) == 0) {
                 break;
+            }
         }
         close(sfd);
 	}
 
-    if (sp == NULL)
+    if (sp == NULL) {
         log_err("server_init: could not bind");
+    }
     
     freeaddrinfo(servinfo);
     return (sfd);
@@ -54,8 +56,9 @@ server_init(char *port)
 static int
 server_listen(int sfd)
 {
-    if ((sfd != -1) && (listen(sfd, SOMAXCONN)) == -1)
+    if ((sfd != -1) && (listen(sfd, SOMAXCONN)) == -1) {
 		return (-1);
+    }
 	
     return (0);
 }
@@ -87,10 +90,9 @@ server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
             dict_delete(table, mbuf.key);
             break;
         case OPFIND:
-            if ((np = dict_find(table, mbuf.key)) != NULL)
-                fprintf(stderr, "Found: %s\t->\t%s\n", mbuf.key, mbuf.value);
-            else
-                fprintf(stderr, "NOT Found: %s\n", mbuf.key);
+            if ((np = dict_find(table, mbuf.key)) == NULL) {
+                fprintf(stderr, "Not found: %s\t->\t%s\n", np->key, np->value);
+            }
             break;
         default:
             fprintf(stderr, "Invalid\n");
@@ -145,21 +147,25 @@ server_start(struct dict *t, char *port, volatile int *quit)
 
     table = t;
 
-    if ((watcher = calloc(1, sizeof(*watcher))) == NULL)
+    if ((watcher = calloc(1, sizeof(*watcher))) == NULL) {
         fatal("%s: calloc", "__func__");
+    }
 
-    if ((sfd = server_init(port)) < 0)
+    if ((sfd = server_init(port)) < 0) {
         fatal("Server initialization failed");
+    }
 
-	if (server_listen(sfd) == -1)
+	if (server_listen(sfd) == -1) {
         fatal("Server socket listen failed");
+    }
 	
     /*TODO: check if these functions return something*/
     ev_io_init(watcher, server_accept_cb, sfd, EV_READ);
     ev_io_start(loop, watcher);
 
-    while(!*quit)
+    while(!*quit) {
         ev_run (loop, EVRUN_ONCE);
+    }
 
     free(watcher);
 }

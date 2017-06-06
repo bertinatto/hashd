@@ -15,7 +15,6 @@ copy_str(char *dst, char *src, size_t n)
     char *ptr;
     ptr = mempcpy(dst, src, n);
     *ptr = '\0';
-
 }
 
 static int
@@ -23,8 +22,9 @@ has_valid_header(struct msg *mbuf)
 {
     size_t hlen, mlen;
 
-    if (mbuf == NULL)
+    if (mbuf == NULL) {
        return (0);
+    }
 
     mlen = KEYBUFSIZE + VALBFSIZE;
 
@@ -45,8 +45,9 @@ msg_unpack(struct msg *mbuf, char *buf)
     hdrlen = sizeof(mbuf->opcode) +
              sizeof(mbuf->key_size) +
              sizeof(mbuf->value_size);
-    memcpy(mbuf, buf, hdrlen);
     offset = hdrlen;
+
+    memcpy(mbuf, buf, hdrlen);
 
     if (!has_valid_header(mbuf)) {
         log_debug("Invalid header: discading message");
@@ -59,7 +60,7 @@ msg_unpack(struct msg *mbuf, char *buf)
     switch (mbuf->opcode) {
     case OPFIND:
     case OPDEL:
-        copy_str(mbuf->key, buf + offset, sizeof(mbuf->key));
+        copy_str(mbuf->key, buf + hdrlen, mbuf->key_size);
         break;
      case OPADD:
         copy_str(mbuf->key, buf + hdrlen, mbuf->key_size);
