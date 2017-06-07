@@ -6,7 +6,6 @@ compiler:
   - gcc
   - clang
 install:
-  - sudo apt-get install -y libglib2.0-dev libev-dev python3-pip
-  - pip3 install -U pytest
+  - sudo apt-get install -y libglib2.0-dev libev-dev python3
 script:
   - make tests
