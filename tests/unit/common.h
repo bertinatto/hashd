@@ -1,6 +1,6 @@
 #include <glib.h>
 
-#include "../src/hashd.h"
+#include "../../src/hashd.h"
 
 typedef struct {
     struct dict *dd;

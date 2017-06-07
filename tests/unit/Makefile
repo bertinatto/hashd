@@ -10,11 +10,11 @@ CPPFLAGS =
 CFLAGS = -g -std=c99 -pedantic -Wall -O2 ${INCS}
 LDFLAGS = ${LIBS}
 
-PROG_SRC =  ../src/dict.c 	\
-		   ../src/log.c 	\
-		   ../src/node.c 	\
-		   ../src/proto.c 	\
-		   ../src/sandbox.c
+PROG_SRC = ../../src/dict.c    \
+		   ../../src/log.c     \
+		   ../../src/node.c    \
+		   ../../src/proto.c   \
+		   ../../src/sandbox.c
 SRC = $(wildcard *.c)
 OBJ = ${SRC:.c=.o}
 

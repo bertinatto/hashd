@@ -5,13 +5,14 @@ default: all
 
 .PHONY: tests
 tests:
-	cd tests        && \
-	$(MAKE) clean   && \
-	$(MAKE) compile && \
-	$(MAKE) run     && \
+	@cd tests/unit          && \
+	$(MAKE) clean           && \
+	$(MAKE) compile         && \
+	$(MAKE) run             && \
 	$(MAKE) clean
+	@cd tests/integration && $(MAKE) run
 
 .PHONY: clean
 clean:
 	cd src && $(MAKE) clean
-	cd tests && $(MAKE) clean
+	cd tests/unit && $(MAKE) clean

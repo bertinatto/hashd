@@ -6,6 +6,6 @@ compiler:
   - gcc
   - clang
 install:
-  - sudo apt-get install -y libglib2.0-dev libev-dev
+  - sudo apt-get install -y libglib2.0-dev libev-dev python-pytest
 script:
   - make tests
