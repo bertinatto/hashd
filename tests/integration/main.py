@@ -16,8 +16,15 @@ OPADD = 0xfe
 
 
 def start_hashd():
-    p = subprocess.Popen(['../../src/hashd', '-p', '80'])
+    p = subprocess.Popen(['../../src/hashd'])
     time.sleep(5)
+    a = subprocess.Popen(
+            "netstat -tunapl | grep '9999'",
+            shell=True,
+            stdout=subprocess.PIPE
+    ).stdout.read()
+    raise Exception(a)
+
     if not p.pid:
         raise Exception(p.pid)
 
@@ -50,7 +57,7 @@ def main(args):
 
     for i in range(100):
         s = socket(AF_INET, SOCK_STREAM)
-        s.connect(('::1', 80))
+        s.connect(('127.0.0.1', 9999))
 
         key = bytes('secret' + str(i), 'ascii')
         value = bytes(json.dumps({'payload': str(i)}), 'ascii')
