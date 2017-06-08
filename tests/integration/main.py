@@ -18,6 +18,7 @@ OPADD = 0xfe
 def start_hashd():
     p = subprocess.Popen(['../../src/hashd', '-p', '80'])
     time.sleep(5)
+raise Exception(p.pid)
     if not p.pid:
         raise Exception(p.pid)
 
@@ -50,7 +51,7 @@ def main(args):
 
     for i in range(100):
         s = socket(AF_INET, SOCK_STREAM)
-        s.connect(('127.0.0.1', 80))
+        s.connect(('::1', 80))
 
         key = bytes('secret' + str(i), 'ascii')
         value = bytes(json.dumps({'payload': str(i)}), 'ascii')
