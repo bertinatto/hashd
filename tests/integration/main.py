@@ -17,7 +17,7 @@ OPADD = 0xfe
 
 def start_hashd():
     subprocess.Popen(['../../src/hashd'])
-    time.sleep(1)
+    time.sleep(5)
 
 
 def get_options(args):
