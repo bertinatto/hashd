@@ -64,15 +64,15 @@ def main(args):
                 value
             ))
 
-        # if options.find:
-            # # Find
-            # s.send(struct.pack(
-                # 'HHI{0}s'.format(len(key)),
-                # OPFIND,
-                # len(key),
-                # len(value),
-                # key,
-            # ))
+        if options.find:
+            # Find
+            s.send(struct.pack(
+                'HHI{0}s'.format(len(key)),
+                OPFIND,
+                len(key),
+                len(value),
+                key,
+            ))
 
         # if options.delete:
             # s.send(struct.pack(
