@@ -4,13 +4,20 @@
 
 import sys
 import json
+import time
 import struct
 import argparse
+import subprocess
 from socket import socket, AF_INET, SOCK_STREAM
 
 OPFIND = 0xff
 OPDEL = 0xfd
 OPADD = 0xfe
+
+
+def start_hashd():
+    subprocess.Popen(['../../src/hashd'])
+    time.sleep(1)
 
 
 def get_options(args):
@@ -35,6 +42,9 @@ def get_options(args):
 
 def main(args):
     options = get_options(args)
+
+    # Start service
+    start_hashd()
 
     for i in range(100):
         s = socket(AF_INET, SOCK_STREAM)
