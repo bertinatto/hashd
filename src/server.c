@@ -90,8 +90,8 @@ server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
             dict_delete(table, mbuf.key);
             break;
         case OPFIND:
-            if ((np = dict_find(table, mbuf.key)) == NULL) {
-                fprintf(stderr, "Not found: %s\t->\t%s\n", np->key, np->value);
+            if ((np = dict_find(table, mbuf.key)) != NULL) {
+                fprintf(stderr, "found: %s\t->\t%s\n", np->key, np->value);
             }
             break;
         default:

@@ -74,14 +74,14 @@ def main(args):
                 key,
             ))
 
-        if options.delete:
-            s.send(struct.pack(
-                'HHI{0}s'.format(len(key)),
-                OPDEL,
-                len(key),
-                len(value),
-                key,
-            ))
+        # if options.delete:
+            # s.send(struct.pack(
+                # 'HHI{0}s'.format(len(key)),
+                # OPDEL,
+                # len(key),
+                # len(value),
+                # key,
+            # ))
 
 
 if __name__ == '__main__':
