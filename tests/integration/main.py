@@ -18,7 +18,6 @@ OPADD = 0xfe
 def start_hashd():
     p = subprocess.Popen(['../../src/hashd', '-p', '80'])
     time.sleep(5)
-raise Exception(p.pid)
     if not p.pid:
         raise Exception(p.pid)
 
