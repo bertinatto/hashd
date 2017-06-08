@@ -37,7 +37,7 @@ before_script:
   - docker-compose up --build -d
 
 script:
-  - python3 tests/integration/main.py
+  - python3 tests/integration/main.py -afd
 
 after_script:
   - docker-compose down
