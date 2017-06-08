@@ -16,8 +16,10 @@ OPADD = 0xfe
 
 
 def start_hashd():
-    subprocess.Popen(['../../src/hashd'])
+    p = subprocess.Popen(['../../src/hashd'])
     time.sleep(5)
+    if not p.pid:
+        raise Exception(p.pid)
 
 
 def get_options(args):
