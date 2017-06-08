@@ -19,7 +19,7 @@ def start_hashd():
     p = subprocess.Popen(['../../src/hashd'])
     time.sleep(5)
     a = subprocess.Popen(
-            "netstat -tunapl | grep '9999'",
+            "netstat -tunal | grep '9999'",
             shell=True,
             stdout=subprocess.PIPE
     ).stdout.read()
