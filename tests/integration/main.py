@@ -44,7 +44,7 @@ def main(args):
     options = get_options(args)
 
     # Start service
-    start_hashd()
+    # start_hashd()
 
     for i in range(100):
         s = socket(AF_INET, SOCK_STREAM)
