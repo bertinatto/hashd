@@ -18,7 +18,7 @@ OPADD = 0xfe
 def start_hashd():
     p = subprocess.Popen(['../../src/hashd'])
     time.sleep(5)
-    if not p.pid:
+    if p.pid:
         raise Exception(p.pid)
 
 
@@ -46,7 +46,7 @@ def main(args):
     options = get_options(args)
 
     # Start service
-    # start_hashd()
+    start_hashd()
 
     for i in range(100):
         s = socket(AF_INET, SOCK_STREAM)
