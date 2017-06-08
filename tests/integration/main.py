@@ -16,17 +16,8 @@ OPADD = 0xfe
 
 
 def start_hashd():
-    p = subprocess.Popen(['../../src/hashd'])
+    subprocess.Popen(['../../src/hashd'])
     time.sleep(5)
-    a = subprocess.Popen(
-            "netstat -tunal | grep '9999'",
-            shell=True,
-            stdout=subprocess.PIPE
-    ).stdout.read()
-    raise Exception(a)
-
-    if not p.pid:
-        raise Exception(p.pid)
 
 
 def get_options(args):
