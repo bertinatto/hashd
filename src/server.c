@@ -85,6 +85,7 @@ server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
         switch (mbuf.opcode) {
         case OPADD:
             dict_insert(table, mbuf.key, mbuf.value);
+            fprintf(stderr, "added: %s\t->\t%s\n", mbuf.key, mbuf.value);
             break;
         case OPDEL:
             dict_delete(table, mbuf.key);
@@ -92,6 +93,7 @@ server_dispatch_cb(struct ev_loop *loop, struct ev_io *watcher, int revents)
         case OPFIND:
             if ((np = dict_find(table, mbuf.key)) != NULL) {
                 fprintf(stderr, "found: %s\t->\t%s\n", np->key, np->value);
+                send(watcher->fd, np->value, malloc_usable_size(np->value), 0);
             }
             break;
         default:

@@ -58,7 +58,7 @@ main(int argc, char *argv[])
 	signal(SIGINT, sighdr);
     table = dict_new(1000);
     log_init(verbosity);
-    sandbox_init();
+    /*sandbox_init();*/
     server_start(table, port, &quit);
     server_cleanup();
     return 0;
